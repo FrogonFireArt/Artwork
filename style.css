@@ -1,0 +1,652 @@
+/* ============================================================
+   style.css — Frog on Fire Portfolio
+   ============================================================
+
+   TABLE OF CONTENTS
+   1. Design Tokens (colors, fonts)
+   2. Reset & Base
+   3. Scrollbar
+   4. Site Header
+   5. Logo
+   6. Filter Bar
+   7. Gallery Grid
+   8. Artwork Card
+   9. Pixel Art Cards
+   10. Lightbox
+   11. Site Footer
+   12. Social Links
+   13. Copy Toast
+   14. Page Blur Effect
+   15. Empty State
+   16. Animations
+   17. Responsive
+
+   ============================================================ */
+
+
+/* ── 1. DESIGN TOKENS ──────────────────────────────────────── */
+/*
+   Change these variables to restyle the whole page at once.
+
+   --color-background      Main page background
+   --color-surface-header  Header bar background (slightly different from page)
+   --color-text            Main readable text
+   --color-text-muted      Dimmed text — captions, labels, inactive tabs
+   --color-text-faint      Very subtle lines and borders
+   --color-gold            Accent gold — "Frog", active tab, highlights
+   --color-red             Accent red-orange — "Fire", hover accents
+*/
+:root {
+  --color-background:     #0c0c0e;
+  --color-surface-header: rgba(22, 22, 22, 0.98);
+  --color-text:           #a9a6a2;
+  --color-text-muted:     #9a9aa8;
+  --color-text-hover:     #d4d1cd;
+  --color-text-faint:     rgba(255, 255, 255, 0.06);
+  --color-gold:           #e8c97a;
+  --color-red:            #c46b5a;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-ui:      'Inter', sans-serif;
+}
+
+
+/* ── 2. RESET & BASE ───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  height: 100vh;
+  overflow: hidden; /* body never scrolls — scrolling happens inside .page-content */
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ── 3. SCROLLBAR ──────────────────────────────────────────── */
+/* Custom thin scrollbar that matches the dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+}
+
+
+/* ── 4. SITE HEADER ────────────────────────────────────────── */
+/* Sticky top bar — slightly different shade from the page background */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 64px;
+  height: 58px;
+  gap: 16px;
+  background: var(--color-surface-header);
+  backdrop-filter: blur(16px);
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* If you use an <img> for the logo instead of text */
+.logo-image {
+  height: 38px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  display: block;
+}
+
+
+/* ── 5. LOGO IMAGE ─────────────────────────────────────────── */
+/*
+   To resize the logo, change the height value below.
+   Width adjusts automatically to keep the proportions correct.
+   To swap the logo, just replace  images/logo.svg  with your own file
+   in index.html — no CSS changes needed.
+*/
+.logo-image {
+  height: 36px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
+}
+
+
+/* ── 6. FILTER BAR ─────────────────────────────────────────── */
+/* Horizontal scrollable row of category tabs */
+.filter-bar {
+  display: flex;
+  padding: 0 64px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.filter-bar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual tab button */
+.filter-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  min-height: 48px;
+}
+.filter-btn:hover {
+  color: var(--color-text-hover);
+}
+.filter-btn.active {
+  color: var(--color-gold);
+  border-bottom-color: var(--color-gold);
+}
+
+/* Small pill showing how many artworks are in each category */
+.filter-count {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-left: 7px;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 2px 7px;
+  border-radius: 20px;
+  display: inline-block;
+}
+.filter-btn.active .filter-count {
+  color: var(--color-gold);
+  background: rgba(232, 201, 122, 0.12);
+}
+
+/* Thin line below the filter bar */
+.filter-divider {
+  height: 1px;
+  background: var(--color-text-faint);
+  margin: 0 64px;
+}
+
+
+/* ── 7. GALLERY GRID ───────────────────────────────────────── */
+/*
+   3-column grid. Each row is as tall as its tallest card.
+   Shorter cards in the same row leave empty space below them.
+   Items flow strictly left-to-right, top-to-bottom.
+*/
+.gallery {
+  padding: 32px 350px 80px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  gap: 20px;
+  align-items: start;
+  transition: opacity 0.25s ease;
+}
+
+.gallery.is-fading {
+  opacity: 0;
+}
+
+
+/* ── 8. ARTWORK CARD ───────────────────────────────────────── */
+/* Each artwork in the gallery — no border or background, image sits bare */
+.artwork-card {
+  position: relative;
+  cursor: pointer;
+  animation: anim-fade-up 0.4s ease both;
+}
+
+/* Image container — natural size, no forced aspect ratio, no background */
+.card-media-wrap {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* creates stacking context so z-index works inside */
+}
+
+.card-media {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  background: transparent;
+  position: relative;
+}
+
+.card-media img,
+.card-media video {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: translateZ(0);   /* always on GPU layer — prevents pixel shifting */
+  will-change: filter;        /* tells browser filter changes are coming */
+  transition: filter 0.3s ease;
+}
+
+/* Dim the image slightly on hover to show the title */
+@media (hover: hover) {
+  .artwork-card:hover .card-media img,
+  .artwork-card:hover .card-media video {
+    filter: brightness(0.78);
+  }
+}
+
+/* Artwork title — fades in under the image on hover */
+.card-info {
+  padding: 7px 0 0;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.artwork-card:hover .card-info {
+  opacity: 1;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-text-muted);
+  line-height: 1.3;
+  transition: font-weight 0.2s ease, color 0.2s ease;
+}
+.artwork-card:hover .card-title {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Inner wrapper used by pixel art cards so the badge positions against
+   the image itself rather than the full-width flex container */
+.card-image-wrap {
+  position: relative;
+  display: inline-block; /* shrink-wraps to the image size */
+  line-height: 0;        /* removes phantom space below inline image */
+}
+
+/* Small pill badge showing "Image", "GIF", or "Video" — appears on hover */
+.card-type-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2; /* sits above the image which has its own GPU compositing layer */
+  background: rgba(12, 12, 14, 0.75);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.artwork-card:hover .card-type-badge {
+  opacity: 1;
+}
+
+
+/* ── 9. PIXEL ART CARDS ────────────────────────────────────── */
+/*
+   Pixel art images are tiny by nature.
+   This stops them from stretching to fill the column —
+   instead they sit centered on a dark background at their real size.
+   Add  pixelArt: true  to any entry in artworks.js to use this.
+*/
+.card-media.card-media--pixel-art {
+  display: block;
+  padding: 0;
+  background: transparent;
+}
+
+.card-media.card-media--pixel-art img {
+  width: 100%;           /* stretch to full column width — no fractional positioning */
+  height: auto;
+  display: block;
+  /* Keeps pixel art crisp instead of blurry when scaled up */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Pixel art in the lightbox — also stays crisp */
+.lightbox-media--pixel-art {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  max-height: 70vh;
+  width: auto;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+
+/* ── 10. LIGHTBOX ──────────────────────────────────────────── */
+/* Full-screen overlay that shows artwork at full size */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  cursor: pointer;
+
+  /* Hidden by default — transitions in when .is-open is added */
+  opacity: 0;
+  visibility: hidden;
+  background: rgba(6, 6, 8, 0);
+  transition: opacity 0.35s ease, visibility 0.35s ease, background 0.35s ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  background: rgba(6, 6, 8, 0.97);
+}
+
+/* The content box inside the overlay */
+.lightbox-inner {
+  max-width: 880px;
+  width: 100%;
+  position: relative;
+  margin: auto;
+  cursor: default;
+  opacity: 0;
+  transform: scale(0.96) translateY(12px);
+  transition: opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s;
+}
+
+.lightbox.is-open .lightbox-inner {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* The image or video inside the lightbox */
+.lightbox-media {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+}
+
+/* Text below the image */
+.lightbox-info {
+  padding: 16px 0 0;
+}
+
+.lightbox-title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 4vw, 30px);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-text-muted);
+}
+
+.lightbox-category {
+  color: var(--color-text-muted);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  opacity: 0.5;
+}
+
+.lightbox-description {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  line-height: 1.7;
+  margin-top: 8px;
+}
+
+/* × close button */
+.lightbox-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  font-size: 28px;
+  line-height: 1;
+  transition: color 0.2s;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.lightbox-close:hover {
+  color: var(--color-text);
+}
+
+/* ← → navigation arrows */
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  font-size: 24px;
+  padding: 12px;
+  transition: color 0.2s;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+.lightbox-nav:hover {
+  color: var(--color-text);
+}
+.lightbox-nav--prev { right: calc(100% + 8px); }
+.lightbox-nav--next { left:  calc(100% + 8px); }
+
+
+/* ── 11. SITE FOOTER ───────────────────────────────────────── */
+.site-footer {
+  padding: 32px 64px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between; /* copyright left, icons right */
+  border-top: 1px solid var(--color-text-faint);
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.footer-copyright {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}
+
+
+/* ── 12. SOCIAL LINKS ──────────────────────────────────────── */
+.social-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.social-link {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: color 0.2s, transform 0.2s;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.social-link:hover {
+  color: var(--color-text);
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+
+
+/* ── 13. COPY TOAST ────────────────────────────────────────── */
+/* Small notification that pops up when email is copied */
+.copy-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-text);
+  color: var(--color-background);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 9999;
+}
+.copy-toast.is-visible {
+  opacity: 1;
+}
+
+
+/* ── 14. PAGE BLUR EFFECT ──────────────────────────────────── */
+/* The whole page behind the lightbox blurs when it opens */
+.page-content {
+  transition: filter 0.35s ease;
+  will-change: filter;
+  flex: 1;              /* fills remaining height below header + filter bar */
+  overflow-y: auto;     /* scrollbar lives here, not on the body */
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+.page-content.is-blurred {
+  filter: blur(8px) brightness(0.45);
+}
+
+
+/* ── 15. EMPTY STATE ───────────────────────────────────────── */
+/* Shown when a category has no artwork yet */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--color-text-muted);
+  display: none;
+  font-size: 12px;
+}
+
+
+/* ── 16. ANIMATIONS ────────────────────────────────────────── */
+@keyframes anim-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ── 17. RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 1060px) {
+  /* Hide lightbox arrows on smaller screens (not enough space beside the image) */
+  .lightbox-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    padding: 0 24px;
+  }
+  .filter-bar {
+    padding: 0 24px;
+  }
+  .filter-divider {
+    margin: 0 24px;
+  }
+  .site-footer {
+    padding: 28px 24px 36px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    padding: 24px 24px 60px;
+  }
+}
+
+/* On touch devices titles are always visible (no hover state) */
+@media (hover: none) {
+  .card-info {
+    opacity: 1;
+  }
+  .card-type-badge {
+    display: none;
+  }
+}
