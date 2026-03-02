@@ -630,7 +630,11 @@ body {
   }
   .site-footer {
     padding: 28px 24px 36px;
+    /* env(safe-area-inset-bottom) adds extra space for phone nav bars on iOS/Android */
+    padding-bottom: calc(36px + env(safe-area-inset-bottom, 0px));
     gap: 20px;
+    flex-direction: column;      /* stack copyright above icons on mobile */
+    align-items: flex-start;
   }
 }
 
