@@ -67,7 +67,7 @@ body {
   color: var(--color-text);
   font-family: var(--font-ui);
   font-size: 13px;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden; /* body never scrolls — scrolling happens inside .page-content */
   display: flex;
   flex-direction: column;
@@ -576,10 +576,11 @@ body {
 .page-content {
   transition: filter 0.35s ease;
   will-change: filter;
-  flex: 1;              /* fills remaining height below header + filter bar */
-  overflow-y: auto;     /* scrollbar lives here, not on the body */
+  flex: 1;
+  overflow-y: auto;
   overflow-x: hidden;
   scrollbar-gutter: stable;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 .page-content.is-blurred {
   filter: blur(8px) brightness(0.45);
