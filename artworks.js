@@ -57,19 +57,20 @@ const ARTWORKS = [
   // ── Pixel Art + Animation ───────────────────────────────
   {
     id: 2,
-    title: "Ronin - Animation",
-    category: ["Pixel Art", "Animation"],
-    order: { "all": 2, "Pixel Art": 1, "Animation": 1 },
-    desc: "Animation made with Spine2D",
+    title: "Ronin - Gates of Yomi",
+    category: ["Pixel Art", "Frame Animation"],
+    order: { "all": 2, "Pixel Art": 1, "Frame Animation": 1 },
+    desc: "Animation made with Aseprite",
     src: "images/Animation/RoninAnimation.gif",
-    mediaType: "image",
+    mediaType: "gif",
     pixelArt: true
   },
+
   {
     id: 3,
     title: "Kitsune Vendor",
-    category: ["Pixel Art", "Animation"],
-    order: { "all": 3, "Pixel Art": 2, "Animation": 2 },
+    category: ["Pixel Art", "Frame Animation"],
+    order: { "all": 3, "Pixel Art": 2, "Frame Animation": 2 },
     desc: "Animation made with Spine2D",
     src: "images/Animation/Vendor.gif",
     mediaType: "gif",
@@ -77,12 +78,13 @@ const ARTWORKS = [
   },
 
   // ── Commission ──────────────────────────────────────────
+
   {
     id: 4,
     title: "Commission - Lancer Ronin Animation",
-    category: ["Pixel Art", "Animation", "Commission"],
-    order: {},
-    desc: "Animation made using Spine2D",
+    category: ["Spine Animation", "Commission"],
+    order: { "all": 7, "Spine Animation": 1, "Commission": 4 },
+    desc: "Animation made using Spine2D. The mech sprite is provided by the client and not made by myself",
     src: "images/Animation/LancerRonin.gif",
     mediaType: "gif",
     pixelArt: true
@@ -90,72 +92,125 @@ const ARTWORKS = [
 
   {
     id: 5,
-    title: "Commission - Lancer Archer Animation",
-    category: ["Pixel Art", "Animation", "Commission"],
-    order: {},
-    desc: "Animation made with Spine2D",
-    src: "images/Animation/LancerArcher.gif",
+    title: "Commission - Lancer Witch Animation",
+    category: ["Spine Animation", "Commission"],
+    order: { "all": 8, "Spine Animation": 2, "Commission": 5 },
+    desc: "Animation made using Spine2D. The mech sprite is provided by the client and not made by myself",
+    src: "images/Animation/LancerWitch.gif",
     mediaType: "gif",
     pixelArt: true
   },
 
   {
     id: 6,
-    title: "Commission - Lancer Witch Animation",
-    category: ["Pixel Art", "Animation", "Commission"],
-    order: {},
-    desc: "Animation made using Spine2D",
-    src: "images/Animation/LancerWitch.gif",
-    mediaType: "gif",
-    pixelArt: true
-  },
-  
-  {
-    id: 7,
-    title: "Commission - Rock Altar Death Animation",
-    category: ["Pixel Art", "Animation", "Commission"],
-    order: { "all": 7, "Pixel Art": 3, "Animation": 6, "Commission": 4 },
-    desc: "Animation made with Aseprite",
-    src: "images/Animation/Altar_Death.gif",
-    mediaType: "gif",
-    pixelArt: true
-  },
-  {
-    id: 8,
-    title: "Commission - Barrier VFX Animation",
-    category: ["Pixel Art", "Animation", "Commission"],
-    order: {},
-    desc: "Animation made with Aseprite",
-    src: "images/Animation/Barrier.gif",
+    title: "Commission - Lancer Archer Animation",
+    category: ["Spine Animation", "Commission"],
+    order: { "all": 9, "Spine Animation": 3, "Commission": 6 },
+    desc: "Animation made with Spine2D. The mech sprite is provided by the client and not made by myself",
+    src: "images/Animation/LancerArcher.gif",
     mediaType: "gif",
     pixelArt: true
   },
 
-  { 
-    id: 9,
+  {
+    id: 7,
     title: "Commission - Spider Animation",
-    category: ["Pixel Art", "Animation", "Commission"],
-    order: {},
-    desc: "",
+    category: ["Spine Animation", "Commission"],
+    order: { "all": 16, "Spine Animation": 7 },
+    desc: "Animation made with Spine2D. The spider sprite and design is provided by the client and not made by myself",
     src: "images/Animation/Spider.gif",
     mediaType: "gif",
     pixelArt: true
   },
 
   {
+    id: 8,
+    title: "Commission - Rock Altar Death Animation",
+    category: ["Pixel Art", "Frame Animation", "Commission"],
+    order: { "all": 3, "Pixel Art": 4, "Frame Animation": 6, "Commission": 1 },
+    desc: "Animation made with Aseprite. The background is made partially by another artist and myself. The altar design is belongs to another artist",
+    src: "images/Animation/Altar_Death.gif",
+    mediaType: "gif",
+    pixelArt: true
+  },
+
+  {
+    id: 9,
+    title: "Commission - Barrier VFX Animation",
+    category: ["Pixel Art", "Frame Animation", "Commission"],
+    order: { "all": 4, "Pixel Art": 7, "Frame Animation": 7, "Commission": 2 },
+    desc: "Animation made with Aseprite. The walking girl character is not made by myself.",
+    src: "images/Animation/Barrier.gif",
+    mediaType: "gif",
+    pixelArt: true
+  },
+  
+  {
     id: 10,
-    title: "Commission - Skill Icons",
-    category: ["Pixel Art", "UI", "Commission"],
+    title: "Commission - Axe Rider Animation",
+    category: ["Spine Animation", "Commission"],
     order: {},
+    desc: "Animation made with Spine2D. The original illustration is provided by the clients and not made by myself",
+    src: "images/Animation/AxeRider1.webm",
+    mediaType: "video"
+  },
+  
+{
+    id: 11,
+    title: "Commission - Axe Rider Phase 2 Animation",
+    category: ["Spine Animation", "Commission"],
+    order: {},
+    desc: "Animation made with Spine2D. The original illustration is provided by the clients and not made by myself",
+    src: "images/Animation/AxeRider2.webm",
+    mediaType: "video"
+  },
+
+  {
+    id: 13,
+    title: "Commission - Moss Hulk Animation",
+    category: ["Spine Animation", "Commission"],
+    order: {},
+    desc: "Animation made with Spine2D. The original illustration is provided by the clients and not made by myself",
+    src: "images/Animation/MossHulk.webm",
+    mediaType: "video"
+  },
+
+  {
+    id: 14,
+    title: "Commission - Pill Bug Animation",
+    category: ["Spine Animation", "Commission"],
+    order: {},
+    desc: "Animation made with Spine2D. The original illustration is provided by the clients and not made by myself",
+    src: "images/Animation/PillBug.webm",
+    mediaType: "video"
+  },
+
+  {
+    id: 15,
+    title: "Commission - Straw Monster Animation",
+    category: ["Spine Animation", "Commission"],
+    order: {},
+    desc: "Animation made with Spine2D. The original illustration is provided by the clients and not made by myself",
+    src: "images/Animation/StrawMonster.webm",
+    mediaType: "video"
+  },
+
+  // ── UI ──────────────────────────────────────────────────
+  {
+    id: 16,
+    title: "Commission - Skill Icons",
+    category: ["UI", "Commission"],
+    order: { "all": 6, "Commission": 3 },
     desc: "",
     src: "images/UI/Skill_Icons.webp",
     mediaType: "image",
     pixelArt: true
   },
+
   {
-    id: 11,
+    id: 17,
     title: "Commission - UI Skill Upgrade Screen",
-    category: ["Pixel Art", "UI", "Commission"],
+    category: ["UI", "Commission"],
     order: {},
     desc: "",
     src: "images/UI/Upgrade.webp",
@@ -163,27 +218,26 @@ const ARTWORKS = [
     pixelArt: true
   },
 
-  
-
-  // ── UI ──────────────────────────────────────────────────
   {
-    id: 12,
+    id: 18,
     title: "Gates of Yomi - Item Selection Screen",
-    category: ["2D", "UI"],
+    category: "UI",
     order: {},
     desc: "",
     src: "images/UI/UI1.webp",
     mediaType: "image"
   },
+
   {
-    id: 13,
+    id: 19,
     title: "Gates of Yomi - Abilities Selection Screen",
-    category: ["2D", "UI"],
+    category: "UI",
     order: {},
     desc: "",
     src: "images/UI/UI2.webp",
     mediaType: "image"
   },
+
 
 ];
 
