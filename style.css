@@ -639,7 +639,8 @@ body {
     padding: 28px 24px 36px;
     gap: 20px;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
   }
 }
 
